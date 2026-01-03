@@ -5,14 +5,18 @@ export default {
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
-    "./content/**/*.{mdx}"
+    "./lib/**/*.{ts,tsx}",
+
+    // IMPORTANT: don't use "{mdx}" with a single value — Tailwind warns about it
+    "./content/**/*.mdx",
+    "./content/**/*.md",
   ],
   theme: {
     extend: {
       boxShadow: {
-        soft: "0 10px 30px rgba(0,0,0,0.08)"
-      }
-    }
+        soft: "0 10px 30px rgba(0,0,0,0.08)",
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 } satisfies Config;

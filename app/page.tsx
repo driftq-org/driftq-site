@@ -7,6 +7,12 @@ const GradientWord = ({ children }: { children: React.ReactNode }) => (
   </span>
 );
 
+const InlineCode = ({ children }: { children: React.ReactNode }) => (
+  <code className="rounded-md bg-zinc-100 px-1.5 py-0.5 text-[0.95em] text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100">
+    {children}
+  </code>
+);
+
 const HomePage = () => (
   <main>
     <section className="relative overflow-hidden">
@@ -15,7 +21,7 @@ const HomePage = () => (
 
       <div className="mx-auto max-w-6xl px-4 py-20">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1 text-xs text-zinc-700 shadow-soft backdrop-blur dark:border-white/10 dark:bg-zinc-950/60 dark:text-zinc-200">
+          <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1 text-xs text-zinc-700 shadow-soft backdrop-blur dark:border-white/10 dark:bg-zinc-950/60 dark:text-zinc-200">
             <span className="h-2 w-2 rounded-full bg-green-500" />
             DriftQ-Core MVP shipped
             <span className="text-zinc-400 dark:text-zinc-500">•</span>
@@ -40,7 +46,7 @@ const HomePage = () => (
 
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Card title="Streaming consume">
-              NDJSON streaming from <code>/v1/consume</code> with per-owner leases.
+              NDJSON streaming from <InlineCode>/v1/consume</InlineCode> with per-owner leases.
             </Card>
             <Card title="Retry + DLQ">Automatic redelivery, envelope retry policy, and strict DLQ routing.</Card>
             <Card title="Idempotency">Consume-scope idempotency keys to prevent duplicate side effects.</Card>
@@ -50,7 +56,6 @@ const HomePage = () => (
       </div>
     </section>
 
-    {/* WHAT YOU CAN BUILD */}
     <section className="mx-auto max-w-6xl px-4 py-16">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center">
         <div>
@@ -78,8 +83,8 @@ const HomePage = () => (
           </div>
         </div>
 
-        {/* Example box stuff*/}
-        <div className="rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-zinc-950">
+        {/* Example for now */}
+        <div className="rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-zinc-950">
           <div className="text-sm font-semibold text-zinc-600 dark:text-zinc-300">Example</div>
           <div className="mt-3 text-sm">
             <pre className="overflow-x-auto rounded-2xl bg-zinc-50 p-4 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
@@ -105,21 +110,26 @@ const HomePage = () => (
       </div>
     </section>
 
-    <section className="border-t border-black/10 bg-zinc-950 text-white dark:border-white/10">
+    <section className="border-t border-black/10 bg-white text-zinc-950 dark:border-white/10 dark:bg-zinc-950 dark:text-white">
       <div className="mx-auto max-w-6xl px-4 py-16">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center">
           <div>
             <h3 className="text-3xl font-black tracking-tight">Ready to explore DriftQ v2?</h3>
-            <p className="mt-3 text-white/70">
+            <p className="mt-3 text-zinc-600 dark:text-white/70">
               The next phase evolves DriftQ from a broker into an AI workflow runtime and RAG orchestration engine.
             </p>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row md:justify-end">
-            <Button href="/docs/roadmap" variant="secondary" className="!bg-white !text-black hover:!bg-zinc-100">
+            <Button
+              href="/docs/roadmap"
+              variant="secondary"
+              className="dark:!bg-white dark:!text-black dark:hover:!bg-zinc-100"
+            >
               Roadmap
             </Button>
-            <Button href="/docs" className="!bg-indigo-500 hover:!bg-indigo-400">
+
+            <Button href="/docs" className="!bg-indigo-600 hover:!bg-indigo-500 dark:!bg-indigo-500 dark:hover:!bg-indigo-400">
               Docs
             </Button>
           </div>

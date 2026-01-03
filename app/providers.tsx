@@ -9,6 +9,8 @@ const Providers = ({ children }: { children: React.ReactNode }) => (
     defaultTheme="system"
     enableSystem
     disableTransitionOnChange
+    storageKey="driftq-theme"
+    themes={["light", "dark", "system"]}
   >
     {children}
   </NextThemesProvider>
