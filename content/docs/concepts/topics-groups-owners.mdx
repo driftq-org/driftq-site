@@ -1,0 +1,25 @@
+---
+title: Topics, Groups, Owners
+description: The core consumer model behind DriftQ-Core.
+---
+
+## Topics
+
+A **topic** is a named stream of messages. Topics can have partitions.
+
+## Consumer groups
+
+A **group** is a logical subscription. Each group maintains its own committed offset per partition.
+
+That means:
+
+- Group **g1** and **g2** can independently consume the same topic.
+- Each group sees the stream from its own position.
+
+## Owners
+
+An **owner** identifies a consumer instance. DriftQ uses `owner` to enforce safe ack/nack behavior.
+
+- `/v1/consume` requires `owner`
+- `/v1/ack` and `/v1/nack` require the same `owner`
+- If the owner doesn’t match who currently holds the message lease, you get a conflict response.

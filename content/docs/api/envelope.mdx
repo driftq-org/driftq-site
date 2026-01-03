@@ -1,0 +1,13 @@
+---
+title: Message Envelope
+description: Metadata carried with messages for AI workflows.
+---
+
+A message can carry an **envelope** with fields like:
+
+- `tenant_id`
+- `idempotency_key`
+- `deadline`
+- `retry_policy` (max attempts + backoff)
+
+This envelope is where DriftQ grows into a workflow engine (v2), because it provides “control plane” metadata for routing, retries, budgets, and tracing.

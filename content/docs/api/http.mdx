@@ -1,0 +1,38 @@
+---
+title: HTTP Endpoints
+description: The DriftQ-Core HTTP API surface.
+---
+
+## Health
+
+```http
+GET /v1/healthz
+```
+
+## Topics
+
+```http
+GET  /v1/topics
+POST /v1/topics?name=t&partitions=1
+```
+
+## Produce
+
+```http
+POST /v1/produce?topic=t&value=hello
+```
+
+## Consume (streaming)
+
+```http
+GET /v1/consume?topic=t&group=g&owner=o&lease_ms=5000
+```
+
+Response is **NDJSON** streaming items until the client disconnects.
+
+## Ack / Nack
+
+```http
+POST /v1/ack?topic=t&group=g&owner=o&partition=0&offset=0
+POST /v1/nack?topic=t&group=g&owner=o&partition=0&offset=0&error=some_reason
+```

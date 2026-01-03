@@ -1,0 +1,16 @@
+---
+title: DriftQ Docs
+description: Everything you need to run DriftQ-Core locally and understand its semantics.
+---
+
+Welcome to the DriftQ-Core docs.
+
+DriftQ-Core is a lightweight broker built for **AI workflow reliability**:
+
+- Streaming consume (NDJSON) with **owner + lease**
+- **Ack / Nack** with ownership enforcement
+- Retry policy (max attempts + backoff) + strict **DLQ routing**
+- Consume-scope **idempotency keys** to prevent duplicate side effects
+- Prometheus metrics (inflight, lag, DLQ totals, producer backpressure)
+
+If you want to get running fast, go straight to **[Quickstart](/docs/quickstart)**.

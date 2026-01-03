@@ -1,0 +1,13 @@
+---
+title: Leases & Redelivery
+description: How DriftQ prevents stuck messages and safely re-delivers work.
+---
+
+When a consumer receives a message, DriftQ considers it **in-flight** for that owner.
+
+A lease duration comes from:
+
+- `lease_ms` on `/v1/consume` if provided, otherwise
+- the broker's default ack timeout
+
+If a message isn't acked before the lease expires, DriftQ schedules redelivery and increments `attempts`.

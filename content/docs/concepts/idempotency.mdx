@@ -1,0 +1,12 @@
+---
+title: Idempotency
+description: Prevent duplicate side effects with consume-scope idempotency keys.
+---
+
+AI workflows do side effects. Redelivery means at-least-once delivery — but you still want to avoid double-processing.
+
+DriftQ supports consume-scope idempotency keys:
+
+- Producer sets `envelope.idempotency_key`
+- Broker leases that key to an owner while work is in-flight
+- On ack, the key becomes committed (“done”)

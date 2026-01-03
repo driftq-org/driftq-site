@@ -1,0 +1,51 @@
+---
+title: Quickstart
+description: Run DriftQ-Core locally and verify streaming consume, redelivery, and metrics.
+---
+
+## Run the server
+
+From DriftQ-Core:
+
+```bash
+go run ./cmd/driftqd -log-format=text -log-level=info -reset-wal
+```
+
+## Create a topic
+
+```bash
+curl -i -X POST "http://localhost:8080/v1/topics?name=t&partitions=1"
+```
+
+## Produce a message with retry policy
+
+```bash
+curl -i -X POST "http://localhost:8080/v1/produce?topic=t&value=hello&retry_max_attempts=2"
+```
+
+## Stream consume (NDJSON)
+
+Open a terminal and run:
+
+```bash
+curl --no-buffer "http://localhost:8080/v1/consume?topic=t&group=g&owner=o&lease_ms=5000"
+```
+
+If you **do not ack**, DriftQ will redeliver and increment `attempts`.
+
+## Ack
+
+```bash
+curl -i -X POST "http://localhost:8080/v1/ack?topic=t&group=g&owner=o&partition=0&offset=0"
+```
+
+## Metrics
+
+```bash
+curl -s "http://localhost:8080/metrics" | findstr inflight_messages
+curl -s "http://localhost:8080/metrics" | findstr consumer_lag
+curl -s "http://localhost:8080/metrics" | findstr dlq_messages_total
+curl -s "http://localhost:8080/metrics" | findstr produce_rejected_total
+```
+
+> Tip: If you're on macOS/Linux, replace `findstr` with `grep`.

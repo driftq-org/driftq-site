@@ -1,0 +1,12 @@
+---
+title: Retries & DLQ
+description: Retry policy, backoff, and strict dead-letter routing.
+---
+
+Retry policy is carried in the envelope. In `/v1/produce`, pass query params like:
+
+- `retry_max_attempts`
+- `retry_backoff_ms`
+- `retry_max_backoff_ms`
+
+When `attempts` reaches `max_attempts`, DriftQ routes the message to a DLQ and increments `dlq_messages_total{reason=...}`.

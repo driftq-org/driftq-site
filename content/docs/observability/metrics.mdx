@@ -1,0 +1,13 @@
+---
+title: Metrics
+description: Prometheus metrics exposed by DriftQ-Core.
+---
+
+DriftQ exposes `/metrics` in Prometheus format.
+
+## Core metrics
+
+- `inflight_messages{topic,group,partition}` — current leased count
+- `consumer_lag{topic,group,partition}` — messages after committed offset
+- `dlq_messages_total{topic,reason}` — total routed to DLQ
+- `produce_rejected_total{reason}` — backpressure/overload rejections

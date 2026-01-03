@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+body { color: #0a0a0a; background: #ffffff; }
+
+pre {
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: #0b1020;
+  color: #e8eeff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95em;
+}
+
+a { text-underline-offset: 3px; }
