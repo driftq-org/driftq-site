@@ -16,8 +16,8 @@ const InlineCode = ({ children }: { children: React.ReactNode }) => (
 const HomePage = () => (
   <main>
     <section className="relative overflow-hidden">
-      {/* light + dark radial */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_50%_at_50%_0%,rgba(99,102,241,0.14),transparent_60%)] dark:bg-[radial-gradient(70%_50%_at_50%_0%,rgba(99,102,241,0.20),transparent_60%)]" />
+      <div className="absolute inset-x-0 top-0 -z-10 h-52 bg-gradient-to-b from-indigo-100/80 via-white/40 to-transparent dark:from-indigo-500/10 dark:via-zinc-950/20" />
 
       <div className="mx-auto max-w-6xl px-4 py-20">
         <div className="max-w-3xl">
@@ -90,19 +90,19 @@ const HomePage = () => (
             <pre className="overflow-x-auto rounded-2xl bg-zinc-50 p-4 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
               {
                 `# Create a topic
-                curl -i -X POST "http://localhost:8080/v1/topics?name=t&partitions=1"
+                  curl -i -X POST "http://localhost:8080/v1/topics?name=t&partitions=1"
 
-                # Produce with a retry policy
-                curl -i -X POST "http://localhost:8080/v1/produce?topic=t&value=hello&retry_max_attempts=2"
+                  # Produce with a retry policy
+                  curl -i -X POST "http://localhost:8080/v1/produce?topic=t&value=hello&retry_max_attempts=2"
 
-                # Stream consume (NDJSON)
-                curl --no-buffer "http://localhost:8080/v1/consume?topic=t&group=g&owner=o&lease_ms=5000"
+                  # Stream consume (NDJSON)
+                  curl --no-buffer "http://localhost:8080/v1/consume?topic=t&group=g&owner=o&lease_ms=5000"
 
-                # Ack a message
-                curl -i -X POST "http://localhost:8080/v1/ack?topic=t&group=g&owner=o&partition=0&offset=0"
+                  # Ack a message
+                  curl -i -X POST "http://localhost:8080/v1/ack?topic=t&group=g&owner=o&partition=0&offset=0"
 
-                # Metrics
-                curl -s "http://localhost:8080/metrics" | findstr consumer_lag`
+                  # Metrics
+                  curl -s "http://localhost:8080/metrics" | findstr consumer_lag`
               }
             </pre>
           </div>
@@ -129,7 +129,10 @@ const HomePage = () => (
               Roadmap
             </Button>
 
-            <Button href="/docs" className="!bg-indigo-600 hover:!bg-indigo-500 dark:!bg-indigo-500 dark:hover:!bg-indigo-400">
+            <Button
+              href="/docs"
+              className="!bg-indigo-600 hover:!bg-indigo-500 dark:!bg-indigo-500 dark:hover:!bg-indigo-400"
+            >
               Docs
             </Button>
           </div>

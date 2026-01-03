@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
 import { docsNav } from "@/lib/docs-nav";
+import { useMemo, useState } from "react";
 
 const DocsShell = (props: { currentPath: string; children: React.ReactNode }) => {
   const [q, setQ] = useState("");
