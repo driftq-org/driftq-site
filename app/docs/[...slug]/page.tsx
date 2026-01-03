@@ -1,17 +1,17 @@
 import DocsShell from "@/components/docs/DocsShell";
 import { compileMDX } from "next-mdx-remote/rsc";
-import { listAllDocSlugs, readDocSource } from "@/lib/docs";
 import { mdxComponents } from "@/components/docs/MDXComponents";
 import { notFound } from "next/navigation";
+import { readDocSource } from "@/lib/docs";
 
 type Params = { slug?: string[] };
-
-// const generateStaticParams = () => listAllDocSlugs().map((slug) => ({ slug }));
 
 const DocPage = async ({ params }: { params: Params }) => {
   const slug = params.slug ?? [];
   const source = readDocSource(slug);
-  if (!source) return notFound();
+  if (!source) {
+    return notFound();
+  }
 
   const { content, frontmatter } = await compileMDX<{ title?: string; description?: string }>({
     source,
@@ -20,13 +20,24 @@ const DocPage = async ({ params }: { params: Params }) => {
   });
 
   const currentPath = "/docs" + (slug.length ? "/" + slug.join("/") : "");
+
   return (
     <DocsShell currentPath={currentPath}>
-      {frontmatter?.title ? <h1>{frontmatter.title}</h1> : null}
-      {frontmatter?.description ? <p className="text-black/70">{frontmatter.description}</p> : null}
-      {content}
+      {
+        frontmatter?.title
+          ? <h1 className="text-3xl font-black tracking-tight text-zinc-950 dark:text-white sm:text-4xl">{frontmatter.title}</h1>
+          : null
+      }
+
+      {
+        frontmatter?.description
+          ? <p className="mt-3 text-base leading-relaxed text-zinc-600 dark:text-zinc-300">{frontmatter.description}</p>
+          : null
+      }
+
+      <div className={frontmatter?.title || frontmatter?.description ? "mt-8" : ""}>{content}</div>
     </DocsShell>
   );
-}
+};
 
 export default DocPage;
