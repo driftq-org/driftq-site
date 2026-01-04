@@ -5,12 +5,21 @@ description: Everything you need to run DriftQ-Core locally and understand its s
 
 Welcome to the DriftQ-Core docs.
 
-DriftQ-Core is a lightweight broker built for **AI workflow reliability**:
+<div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+  <div className="text-sm text-zinc-300">
+    DriftQ-Core is a lightweight broker built for <strong>AI workflow reliability</strong>:
+  </div>
 
-- Streaming consume (NDJSON) with **owner + lease**
-- **Ack / Nack** with ownership enforcement
-- Retry policy (max attempts + backoff) + strict **DLQ routing**
-- Consume-scope **idempotency keys** to prevent duplicate side effects
-- Prometheus metrics (inflight, lag, DLQ totals, producer backpressure)
+  <ul className="mt-4 space-y-2">
+    <li>Streaming consume (NDJSON) with <strong>owner + lease</strong></li>
+    <li><strong>Ack / Nack</strong> with ownership enforcement</li>
+    <li>Retry policy (max attempts + backoff) + strict <strong>DLQ routing</strong></li>
+    <li>Consume-scope <strong>idempotency keys</strong> to prevent duplicate side effects</li>
+    <li>Prometheus metrics (inflight, lag, DLQ totals, producer backpressure)</li>
+  </ul>
+</div>
 
-If you want to get running fast, go straight to **[Quickstart](/docs/quickstart)**.
+<div className="mt-6">
+  If you want to get running fast, go straight to{" "}
+  <a href="/docs/quickstart"><strong>Quickstart</strong></a>.
+</div>

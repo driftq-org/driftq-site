@@ -1,8 +1,68 @@
 ---
 title: Roadmap
-description: Where DriftQ is going next (v2 and beyond).
+description: Where the DriftQ project is going next (v2 and beyond).
 ---
 
-DriftQ-Core (v1) establishes the reliability foundation: leasing, retries, DLQ, idempotency, observability.
+<div className="space-y-10">
 
-DriftQ v2 evolves into an AI workflow runtime & RAG orchestration engine.
+  {/* Naming clarity */}
+  <section className="space-y-4">
+    <h2 className="m-0">Names (so this page doesn’t confuse people)</h2>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>DriftQ</strong> is the overall project/org.{" "}
+        <strong>DriftQ-Core</strong> is the main GitHub repo that contains the v1 broker implementation.
+      </p>
+    </div>
+  </section>
+
+  {/* v1 */}
+  <section className="space-y-5">
+    <h2 className="m-0">v1: DriftQ-Core (reliability foundation)</h2>
+
+    <p className="m-0">
+      <strong>DriftQ-Core</strong> establishes the reliability primitives you need before anything “workflow” can be trusted:
+    </p>
+
+    <ul className="space-y-2">
+      <li><strong>Leasing</strong> — safe ownership + crash recovery</li>
+      <li><strong>Retries</strong> — backoff + max attempts</li>
+      <li><strong>DLQ</strong> — strict dead-letter routing for failures that should stop retrying</li>
+      <li><strong>Idempotency</strong> — prevent duplicate side effects under redelivery</li>
+      <li><strong>Observability</strong> — metrics for inflight, lag, DLQ totals, backpressure rejects</li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Core idea:</strong> v1 is about “a broker you can trust.” Everything else builds on this.
+      </p>
+    </div>
+  </section>
+
+  {/* v2 */}
+  <section className="space-y-5">
+    <h2 className="m-0">v2+: DriftQ (workflow runtime direction)</h2>
+
+    <p className="m-0">
+      The broader <strong>DriftQ</strong> project evolves beyond a broker into an <strong>AI workflow runtime</strong>.
+      The goal is orchestration: durable multi-step pipelines, RAG flows, routing policies, budgets, and tracing —
+      built on top of the v1 reliability foundation.
+    </p>
+
+    <ul className="space-y-2">
+      <li><strong>Workflow runtime</strong> — durable steps, state, and resumability</li>
+      <li><strong>RAG orchestration</strong> — ingestion, retrieval, rerank, tool calls, evaluation loops</li>
+      <li><strong>Policy routing</strong> — route work based on metadata (tenant, priority, cost caps)</li>
+      <li><strong>Budgets</strong> — tenant quotas / spend controls / rate limits</li>
+      <li><strong>Tracing</strong> — first-class workflow + agent tracing</li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Roadmap framing:</strong> DriftQ-Core is the stable base. DriftQ is the larger system that builds on top of it.
+      </p>
+    </div>
+  </section>
+
+</div>

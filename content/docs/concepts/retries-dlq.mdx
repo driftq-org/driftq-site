@@ -3,10 +3,97 @@ title: Retries & DLQ
 description: Retry policy, backoff, and strict dead-letter routing.
 ---
 
-Retry policy is carried in the envelope. In `/v1/produce`, pass query params like:
+<div className="space-y-10">
 
-- `retry_max_attempts`
-- `retry_backoff_ms`
-- `retry_max_backoff_ms`
+  {/* Intro */}
+  <section className="space-y-4">
+    <p className="m-0">
+      DriftQ’s retry behavior is driven by a <strong>retry policy</strong> carried on the <strong>message envelope</strong>.
+      This keeps retry semantics attached to the work itself (not hidden inside a consumer).
+    </p>
 
-When `attempts` reaches `max_attempts`, DriftQ routes the message to a DLQ and increments `dlq_messages_total{reason=...}`.
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Mental model:</strong> each delivery attempt either ends in <code>ack</code> (done) or redelivery (retry).
+        Retry policy decides <em>how many times</em> and <em>how fast</em>.
+      </p>
+    </div>
+  </section>
+
+  {/* Setting policy */}
+  <section className="space-y-5">
+    <h2 className="m-0">Setting retry policy</h2>
+
+    <p className="m-0">
+      When producing via <code>/v1/produce</code>, you can pass retry-related query params like:
+    </p>
+
+    <ul className="space-y-2">
+      <li><code>retry_max_attempts</code> — maximum number of deliveries before DLQ</li>
+      <li><code>retry_backoff_ms</code> — base backoff between retries</li>
+      <li><code>retry_max_backoff_ms</code> — cap for backoff growth</li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 p-4 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0 font-semibold">Example</p>
+      <pre className="mt-3 overflow-x-auto rounded-2xl border border-black/10 bg-zinc-950 p-4 text-zinc-100 dark:border-white/10 dark:bg-zinc-900">
+{`curl -i -X POST "http://localhost:8080/v1/produce?topic=t&value=hello&retry_max_attempts=3&retry_backoff_ms=200&retry_max_backoff_ms=5000"`}
+      </pre>
+    </div>
+  </section>
+
+  {/* Attempts */}
+  <section className="space-y-5">
+    <h2 className="m-0">Attempts</h2>
+
+    <p className="m-0">
+      DriftQ tracks how many times a message has been delivered via <code>attempts</code>.
+      Each time the lease expires without a successful <code>ack</code>, the message is scheduled again and <code>attempts</code> is incremented.
+    </p>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Important:</strong> retries are driven by redelivery. If you never <code>ack</code>, attempts keep climbing.
+      </p>
+    </div>
+  </section>
+
+  {/* DLQ routing */}
+  <section className="space-y-5">
+    <h2 className="m-0">DLQ routing</h2>
+
+    <p className="m-0">
+      Once <code>attempts</code> reaches <code>max_attempts</code>, DriftQ stops retrying and routes the message to a <strong>DLQ</strong>
+      (dead-letter queue).
+    </p>
+
+    <ul className="space-y-2">
+      <li>The message is moved to a DLQ path/topic (strict dead-letter routing)</li>
+      <li>DriftQ increments <code>dlq_messages_total{"{reason=...}"}</code> to explain why it was dead-lettered</li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Why DLQ exists:</strong> it prevents infinite retry loops and gives you a clean place to inspect and remediate failed work.
+      </p>
+    </div>
+  </section>
+
+  {/* What to do with DLQ */}
+  <section className="space-y-5">
+    <h2 className="m-0">What you typically do with DLQ messages</h2>
+
+    <ul className="space-y-2">
+      <li>Alert on DLQ growth (your system is failing “for real”)</li>
+      <li>Inspect payload + error reason</li>
+      <li>Fix the root cause, then replay or re-produce corrected messages</li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Keep it strict:</strong> if something hits DLQ, treat it as a signal that needs attention, not background noise.
+      </p>
+    </div>
+  </section>
+
+</div>

@@ -3,11 +3,87 @@ title: Leases & Redelivery
 description: How DriftQ prevents stuck messages and safely re-delivers work.
 ---
 
-When a consumer receives a message, DriftQ considers it **in-flight** for that owner.
+<div className="space-y-10">
 
-A lease duration comes from:
+  {/* Intro */}
+  <section className="space-y-4">
+    <p className="m-0">
+      When a consumer receives a message, DriftQ marks it <strong>in-flight</strong> for that <strong>owner</strong>.
+      That “in-flight” state is protected by a <strong>lease</strong>.
+    </p>
 
-- `lease_ms` on `/v1/consume` if provided, otherwise
-- the broker's default ack timeout
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Goal:</strong> avoid stuck messages while still preventing two consumers from doing the same work.
+      </p>
+    </div>
+  </section>
 
-If a message isn't acked before the lease expires, DriftQ schedules redelivery and increments `attempts`.
+  {/* Lease mechanics */}
+  <section className="space-y-5">
+    <h2 className="m-0">What a lease means</h2>
+
+    <ul className="space-y-2">
+      <li>
+        While the lease is active, only the <strong>current owner</strong> can <code>ack</code> or <code>nack</code> that message.
+      </li>
+      <li>
+        If another consumer tries to <code>ack</code>/<code>nack</code> the same message with a different <code>owner</code>,
+        DriftQ rejects it (ownership conflict).
+      </li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Practical effect:</strong> leases give you “at-most-one active worker” per message at a time.
+      </p>
+    </div>
+  </section>
+
+  {/* Lease duration */}
+  <section className="space-y-5">
+    <h2 className="m-0">Where lease duration comes from</h2>
+
+    <p className="m-0">
+      The lease length is determined in this order:
+    </p>
+
+    <ol className="space-y-2">
+      <li>
+        <code>lease_ms</code> on <code>/v1/consume</code> (if provided)
+      </li>
+      <li>
+        otherwise the broker’s default ack timeout
+      </li>
+    </ol>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Rule of thumb:</strong> set <code>lease_ms</code> slightly longer than your normal processing time.
+      </p>
+    </div>
+  </section>
+
+  {/* Redelivery */}
+  <section className="space-y-5">
+    <h2 className="m-0">Redelivery</h2>
+
+    <p className="m-0">
+      If a message isn’t acked before the lease expires, DriftQ assumes the consumer crashed, hung, or lost progress.
+      It then schedules the message for <strong>redelivery</strong>.
+    </p>
+
+    <ul className="space-y-2">
+      <li>Lease expires → message becomes eligible for redelivery</li>
+      <li>DriftQ re-queues it for delivery to a consumer</li>
+      <li><code>attempts</code> is incremented each time it’s re-delivered</li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Why attempts matter:</strong> they power retry limits and DLQ routing (covered in “Retries &amp; DLQ”).
+      </p>
+    </div>
+  </section>
+
+</div>
