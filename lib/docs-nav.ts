@@ -6,6 +6,7 @@ export const docsNav: NavSection[] = [
     title: "Getting Started",
     items: [
       { title: "Overview", href: "/docs" },
+      { title: "Run locally", href: "/docs/run-locally" },
       { title: "Quickstart", href: "/docs/quickstart" }
     ]
   },
