@@ -3,7 +3,38 @@ title: Quickstart
 description: Run DriftQ-Core locally and verify streaming consume, redelivery, and metrics.
 ---
 
-<div className="[&_h2]:mt-12 [&_h2]:mb-4 [&_pre]:mt-4 [&_pre]:mb-10 [&_blockquote]:mt-8 [&_blockquote]:mb-0">
+<div
+  className="
+    [&_h2]:mt-12 [&_h2]:mb-4
+    [&_pre]:mt-4 [&_pre]:mb-10
+    [&_blockquote]:mt-8 [&_blockquote]:mb-0
+
+    /* Make ALL fenced code blocks consistent + kill the white 'pill' inside <pre><code> */
+    [&_pre]:not-prose
+    [&_pre]:overflow-x-auto
+    [&_pre]:whitespace-pre
+    [&_pre]:rounded-2xl
+    [&_pre]:border [&_pre]:border-black/10
+    [&_pre]:bg-zinc-950
+    [&_pre]:px-4 [&_pre]:py-3
+    [&_pre]:font-mono
+    [&_pre]:text-sm
+    [&_pre]:leading-relaxed
+    [&_pre]:text-zinc-100
+    dark:[&_pre]:border-white/10
+    dark:[&_pre]:bg-zinc-900
+    dark:[&_pre]:text-zinc-100
+
+    /* Hard reset inline-code styling inside code blocks */
+    [&_pre>code]:block
+    [&_pre>code]:!bg-transparent
+    [&_pre>code]:!p-0
+    [&_pre>code]:!text-inherit
+    [&_pre>code]:!shadow-none
+    [&_pre>code]:!border-0
+    [&_pre>code]:!rounded-none
+  "
+>
 
 ## Run the server
 

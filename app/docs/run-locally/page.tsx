@@ -46,7 +46,7 @@ const RunLocallyPage = () => (
           </div>
 
           <p className="mt-5 text-xs text-zinc-500 dark:text-zinc-400">
-            Tip: when you add the Docker image, put the exact commands here first—then mirror them into the README.
+            TODO (note to myself): add the Docker image, put the exact commands here first, then mirror them into the README.
           </p>
         </div>
       </div>

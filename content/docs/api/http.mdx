@@ -10,7 +10,7 @@ description: The DriftQ-Core HTTP API surface.
       This page lists the current DriftQ-Core HTTP endpoints. Most endpoints are under <code>/v1</code>.
     </p>
 
-    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
       <p className="m-0">
         <strong>Note:</strong> <code>/v1/consume</code> streams responses as <strong>NDJSON</strong> until the client disconnects.
       </p>
@@ -21,7 +21,7 @@ description: The DriftQ-Core HTTP API surface.
   <section className="space-y-3">
     <h2 className="m-0">Health</h2>
 
-    <pre className="m-0 overflow-x-auto rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm leading-relaxed text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100">
+    <pre className="m-0 overflow-x-auto rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm leading-relaxed text-zinc-900 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-100">
       <code className="language-http bg-transparent p-0 text-inherit">{`GET /v1/healthz`}</code>
     </pre>
   </section>
@@ -30,7 +30,7 @@ description: The DriftQ-Core HTTP API surface.
   <section className="space-y-3">
     <h2 className="m-0">Topics</h2>
 
-    <pre className="m-0 overflow-x-auto rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm leading-relaxed text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100">
+    <pre className="m-0 overflow-x-auto rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm leading-relaxed text-zinc-900 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-100">
       <code className="language-http bg-transparent p-0 text-inherit">{`GET  /v1/topics
 POST /v1/topics?name=t&partitions=1`}</code>
     </pre>
@@ -40,7 +40,7 @@ POST /v1/topics?name=t&partitions=1`}</code>
   <section className="space-y-3">
     <h2 className="m-0">Produce</h2>
 
-    <pre className="m-0 overflow-x-auto rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm leading-relaxed text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100">
+    <pre className="m-0 overflow-x-auto rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm leading-relaxed text-zinc-900 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-100">
       <code className="language-http bg-transparent p-0 text-inherit">{`POST /v1/produce?topic=t&value=hello`}</code>
     </pre>
   </section>
@@ -49,11 +49,11 @@ POST /v1/topics?name=t&partitions=1`}</code>
   <section className="space-y-3">
     <h2 className="m-0">Consume (streaming)</h2>
 
-    <pre className="m-0 overflow-x-auto rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm leading-relaxed text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100">
+    <pre className="m-0 overflow-x-auto rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm leading-relaxed text-zinc-900 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-100">
       <code className="language-http bg-transparent p-0 text-inherit">{`GET /v1/consume?topic=t&group=g&owner=o&lease_ms=5000`}</code>
     </pre>
 
-    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
       <p className="m-0">
         Response is <strong>NDJSON</strong>: newline-delimited JSON items streamed until the client disconnects.
       </p>
@@ -64,7 +64,7 @@ POST /v1/topics?name=t&partitions=1`}</code>
   <section className="space-y-3">
     <h2 className="m-0">Ack / Nack</h2>
 
-    <pre className="m-0 overflow-x-auto rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm leading-relaxed text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100">
+    <pre className="m-0 overflow-x-auto rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm leading-relaxed text-zinc-900 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-100">
       <code className="language-http bg-transparent p-0 text-inherit">{`POST /v1/ack?topic=t&group=g&owner=o&partition=0&offset=0
 POST /v1/nack?topic=t&group=g&owner=o&partition=0&offset=0&error=some_reason`}</code>
     </pre>
