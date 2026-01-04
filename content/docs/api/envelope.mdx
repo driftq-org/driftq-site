@@ -21,29 +21,19 @@ description: Metadata carried with messages for AI workflows.
   <section className="space-y-5">
     <h2 className="m-0">Common envelope fields</h2>
 
-    <p className="m-0">
-      An envelope can include fields like:
-    </p>
+    <p className="m-0">An envelope can include fields like:</p>
 
     <ul className="space-y-2">
-      <li>
-        <code>tenant_id</code> — multi-tenant separation / accounting
-      </li>
-      <li>
-        <code>idempotency_key</code> — prevents duplicate side effects across retries
-      </li>
-      <li>
-        <code>deadline</code> — stop doing this work after a certain point in time
-      </li>
-      <li>
-        <code>retry_policy</code> — max attempts + backoff parameters
-      </li>
+      <li><code>tenant_id</code> — multi-tenant separation / accounting</li>
+      <li><code>idempotency_key</code> — prevents duplicate side effects across retries</li>
+      <li><code>deadline</code> — stop doing this work after a certain point in time</li>
+      <li><code>retry_policy</code> — max attempts + backoff parameters</li>
     </ul>
 
     <div className="rounded-2xl border border-black/10 bg-black/5 p-4 dark:border-white/10 dark:bg-white/5">
       <p className="m-0 font-semibold">Why these matter</p>
       <p className="mt-3 mb-0">
-        They let producers define reliability and safety expectations <em>once</em>, and DriftQ enforces them consistently.
+        They let producers define reliability and safety expectations <em>once</em>, and DriftQ-Core enforces them consistently.
       </p>
     </div>
   </section>
@@ -66,8 +56,8 @@ description: Metadata carried with messages for AI workflows.
 
     <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
       <p className="m-0">
-        <strong>Roadmap note:</strong> DriftQ-Core is the v1 broker. The envelope is what enables DriftQ to grow into a
-        workflow engine in v2.
+        <strong>Roadmap note:</strong> DriftQ-Core is the broker repo you can run today. The envelope is what enables DriftQ
+        (the overall project) to grow into a workflow runtime in v2+.
       </p>
     </div>
   </section>
