@@ -17,6 +17,24 @@ const InlineCode = ({ children }: { children: React.ReactNode }) => (
   </code>
 );
 
+const ProgressBox = () => (
+  <div className="w-fit rounded-2xl border border-zinc-200/70 bg-white/70 px-3 py-2 text-xs text-zinc-700 shadow-soft backdrop-blur dark:border-white/10 dark:bg-zinc-950/60 dark:text-zinc-200">
+    <div className="flex flex-col gap-1.5">
+      <div className="inline-flex items-center gap-2">
+        <span className="h-2 w-2 rounded-full bg-green-500" />
+        <span className="font-semibold">Shipped:</span>
+        <span>DriftQ-Core MVP</span>
+      </div>
+
+      <div className="inline-flex items-center gap-2">
+        <span className="h-2 w-2 rounded-full bg-yellow-400" />
+        <span className="font-semibold">Now:</span>
+        <span>Docker images, docs polish, etc.</span>
+      </div>
+    </div>
+  </div>
+);
+
 const HomePage = () => (
   <main>
     <section className="relative overflow-hidden">
@@ -24,41 +42,40 @@ const HomePage = () => (
       <div className="absolute inset-x-0 top-0 -z-10 h-52 bg-gradient-to-b from-indigo-100/80 via-white/40 to-transparent dark:from-indigo-500/10 dark:via-zinc-950/20" />
 
       <div className={`${containerCls} pt-14 pb-6 sm:pt-20 sm:pb-8`}>
-        <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1 text-xs text-zinc-700 shadow-soft backdrop-blur dark:border-white/10 dark:bg-zinc-950/60 dark:text-zinc-200">
-            <span className="h-2 w-2 rounded-full bg-green-500" />
-            DriftQ-Core MVP shipped
-            <span className="text-zinc-400 dark:text-zinc-500">•</span>
-            Observability + DLQ + Idempotency
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+          <div className="max-w-4xl">
+            <h1 className="mt-0 text-4xl font-black tracking-tight text-zinc-950 sm:text-6xl dark:text-white">
+              The <GradientWord>message queue</GradientWord> built for AI workflows.
+            </h1>
+
+            <p className="mt-5 text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
+              DriftQ is the AI-native reliability layer for agent workflows. DriftQ-Core is the broker you can run today.
+              See the{" "}
+              <Link href="/docs/roadmap" className={linkCls}>
+                roadmap
+              </Link>{" "}
+              for what’s next.
+            </p>
+
+            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+              DriftQ-Core is the repo you run today.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button
+                href="/docs/run-locally"
+                className="!bg-indigo-600 hover:!bg-indigo-500 dark:!bg-indigo-500 dark:hover:!bg-indigo-400"
+              >
+                Run locally
+              </Button>
+              <Button href="/docs" variant="primary" className="hidden sm:inline-flex">
+                View Docs
+              </Button>
+            </div>
           </div>
 
-          <h1 className="mt-6 text-4xl font-black tracking-tight text-zinc-950 sm:text-6xl dark:text-white">
-            The <GradientWord>message queue</GradientWord> built for AI workflows.
-          </h1>
-
-          <p className="mt-5 text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
-            DriftQ is the AI-native reliability layer for agent workflows. DriftQ-Core is the broker you can run today.
-            See the{" "}
-            <Link href="/docs/roadmap" className={linkCls}>
-              roadmap
-            </Link>{" "}
-            for what’s next.
-          </p>
-
-          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-            DriftQ-Core is the repo you run today.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              href="/docs/run-locally"
-              className="!bg-indigo-600 hover:!bg-indigo-500 dark:!bg-indigo-500 dark:hover:!bg-indigo-400"
-            >
-              Run locally
-            </Button>
-            <Button href="/docs" variant="primary" className="hidden sm:inline-flex">
-              View Docs
-            </Button>
+          <div className="lg:ml-auto lg:pt-3">
+            <ProgressBox />
           </div>
         </div>
       </div>
