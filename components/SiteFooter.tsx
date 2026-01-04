@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site } from "@/lib/site";
 
 const linkCls =
@@ -15,15 +16,10 @@ const SiteFooter = () => (
         </div>
 
         <div className="flex items-center gap-5 text-sm">
-          <a className={linkCls} href={site.githubUrl} target="_blank" rel="noreferrer">
-            GitHub
-          </a>
-          <a className={linkCls} href="/docs">
-            Docs
-          </a>
-          <a className={linkCls} href="/docs/observability/metrics">
-            Metrics
-          </a>
+          <Link href="/docs" className={linkCls}>Docs</Link>
+          <Link href="/docs/observability/metrics" className={linkCls}>Metrics</Link>
+          <Link href="/docs/roadmap" className={linkCls}>Roadmap</Link>
+          <a href={site.githubUrl} className={linkCls} target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </div>
 

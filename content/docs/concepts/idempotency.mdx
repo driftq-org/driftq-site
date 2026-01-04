@@ -3,10 +3,126 @@ title: Idempotency
 description: Prevent duplicate side effects with consume-scope idempotency keys.
 ---
 
-AI workflows do side effects. Redelivery means at-least-once delivery — but you still want to avoid double-processing.
+<div className="space-y-10">
 
-DriftQ supports consume-scope idempotency keys:
+  {/* Intro */}
+  <section className="space-y-4">
+    <p className="m-0">
+      AI workflows do <strong>side effects</strong> (charge a card, send an email, write to DB, call a vendor API).
+      DriftQ uses <strong>at-least-once</strong> delivery via redelivery — which is great for reliability, but risky for side effects.
+    </p>
 
-- Producer sets `envelope.idempotency_key`
-- Broker leases that key to an owner while work is in-flight
-- On ack, the key becomes committed (“done”)
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Goal:</strong> allow redelivery for reliability, while preventing <em>duplicate side effects</em>.
+        That’s what idempotency is for.
+      </p>
+    </div>
+  </section>
+
+  {/* What it is */}
+  <section className="space-y-5">
+    <h2 className="m-0">What “consume-scope idempotency” means</h2>
+
+    <p className="m-0">
+      DriftQ supports <strong>consume-scope idempotency keys</strong>. In plain terms:
+      the idempotency key is treated like a “work identity” that can be safely retried without being executed twice.
+    </p>
+
+    <ul className="space-y-2">
+      <li>The <strong>producer</strong> sets <code>envelope.idempotency_key</code></li>
+      <li>The <strong>broker</strong> leases that key to an <code>owner</code> while the message is in-flight</li>
+      <li>On <code>ack</code>, the key becomes <strong>committed</strong> (officially “done”)</li>
+    </ul>
+  </section>
+
+  {/* Lifecycle */}
+  <section className="space-y-5">
+    <h2 className="m-0">Lifecycle: lease → ack</h2>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 p-4 dark:border-white/10 dark:bg-white/5">
+      <ol className="m-0 space-y-3 pl-5">
+        <li>
+          Consumer calls <code>/v1/consume</code> with <code>owner</code> and gets a message.
+        </li>
+        <li>
+          If the message has <code>idempotency_key</code>, DriftQ <strong>leases the key</strong> to that owner for the duration of the message lease.
+        </li>
+        <li>
+          The consumer performs the side effect (or its workflow step).
+        </li>
+        <li>
+          Consumer calls <code>/v1/ack</code> with the same <code>owner</code>.
+        </li>
+        <li>
+          DriftQ commits the key: future redeliveries with the same key are treated as <strong>already done</strong>.
+        </li>
+      </ol>
+    </div>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Key idea:</strong> “leased” prevents two consumers from doing it at the same time,
+        and “committed” prevents doing it again later.
+      </p>
+    </div>
+  </section>
+
+  {/* Why it matters */}
+  <section className="space-y-5">
+    <h2 className="m-0">Why it matters</h2>
+
+    <p className="m-0">
+      Without idempotency, retries can accidentally do real damage:
+    </p>
+
+    <ul className="space-y-2">
+      <li>double charging</li>
+      <li>duplicate emails / notifications</li>
+      <li>duplicate DB writes</li>
+      <li>duplicated “tool calls” in agent workflows</li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0">
+        <strong>Bottom line:</strong> at-least-once delivery is non-negotiable for reliability.
+        Idempotency is how you make it safe.
+      </p>
+    </div>
+  </section>
+
+  {/* Practical guidance */}
+  <section className="space-y-5">
+    <h2 className="m-0">Practical guidance</h2>
+
+    <ul className="space-y-2">
+      <li>
+        Use an idempotency key that uniquely identifies the side effect (ex: <code>invoice:{`{id}`}:charge</code>).
+      </li>
+      <li>
+        Keep it stable across retries — don’t generate a new key per attempt.
+      </li>
+      <li>
+        If you have multiple side effects, use multiple keys (one per step) or encode step identity in the key.
+      </li>
+    </ul>
+  </section>
+
+  {/* Example */}
+  <section className="space-y-5">
+    <h2 className="m-0">Example key</h2>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 p-4 dark:border-white/10 dark:bg-white/5">
+      <p className="m-0 font-semibold">If the side effect is “charge invoice 781”</p>
+
+      <pre className="not-prose mt-3 overflow-x-auto whitespace-pre rounded-2xl border !border-zinc-200 !bg-zinc-50 px-4 py-3 font-mono text-sm leading-relaxed !text-zinc-900 dark:!border-zinc-800 dark:!bg-zinc-900 dark:!text-zinc-100">
+        <code className="!bg-transparent !p-0 !text-inherit">{`idempotency_key = "invoice:781:charge"`}</code>
+      </pre>
+
+      <p className="mt-3 mb-0 text-sm opacity-80">
+        Every retry of that same work uses the exact same key.
+      </p>
+    </div>
+  </section>
+
+</div>

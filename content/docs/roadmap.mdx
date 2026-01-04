@@ -1,8 +1,112 @@
 ---
 title: Roadmap
-description: Where DriftQ is going next (v2 and beyond).
+description: Where the DriftQ project is going next (v2 and beyond).
 ---
 
-DriftQ-Core (v1) establishes the reliability foundation: leasing, retries, DLQ, idempotency, observability.
+<div className="space-y-10">
+  <section className="space-y-4">
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
+      <p className="m-0">
+        <strong>Note:</strong> this roadmap is directional and subject to change.
+      </p>
+    </div>
 
-DriftQ v2 evolves into an AI workflow runtime & RAG orchestration engine.
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
+      <p className="m-0">
+        <strong>DriftQ</strong> is the overall project/org.{" "}
+        <strong>DriftQ-Core</strong> is the main GitHub repo that contains the v1 broker implementation.
+      </p>
+    </div>
+  </section>
+
+  {/* v1 */}
+  <section className="space-y-5">
+    <h2 className="m-0 flex flex-wrap items-center gap-2">
+      <span>v1: DriftQ-Core (MVP reliability foundation)</span>
+      <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-800 dark:border-emerald-900/40 dark:bg-emerald-900/20 dark:text-emerald-200">
+        Completed
+      </span>
+    </h2>
+
+    <p className="m-0">
+      v1 is the reliability layer: the broker semantics you need before any workflow system can be trusted.
+    </p>
+
+    <ul className="space-y-2">
+      <li><strong>Leasing</strong> — safe ownership + crash recovery</li>
+      <li><strong>Retries</strong> — backoff + max attempts</li>
+      <li><strong>DLQ</strong> — strict dead-letter routing</li>
+      <li><strong>Idempotency</strong> — prevent duplicate side effects under redelivery</li>
+      <li><strong>Observability</strong> — inflight, lag, DLQ totals, backpressure rejects</li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
+      <p className="m-0">
+        <strong>Status:</strong> v1 MVP is <em>complete</em>. Next is building “workflow-level” capability on top of it.
+      </p>
+    </div>
+  </section>
+
+  {/* v2 */}
+  <section className="space-y-5">
+    <h2 className="m-0 flex flex-wrap items-center gap-2">
+      <span>v2: AI Workflow Engine &amp; RAG Platform</span>
+      <span className="inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-900 dark:border-amber-900/40 dark:bg-amber-900/20 dark:text-amber-200">
+        In progress
+      </span>
+    </h2>
+
+    <p className="m-0">
+      v2 turns the reliability foundation into a practical workflow engine focused on AI pipelines and RAG.
+    </p>
+
+    <ul className="space-y-2">
+      <li><strong>Packaging</strong> & docs</li>
+      <li><strong>Workflow execution</strong> — durable multi-step runs built on v1 semantics</li>
+      <li><strong>RAG pipelines</strong> — first-class “build + run” flows for retrieval-based systems</li>
+      <li><strong>Policy &amp; limits</strong> — basic routing rules and budget-style guardrails</li>
+      <li><strong>Tracing</strong> — workflow-level visibility across steps</li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
+      <p className="m-0">
+        <strong>Intent:</strong> make AI workflows reproducible, debuggable, and reliable — not “best-effort scripts.”
+      </p>
+    </div>
+  </section>
+
+  {/* Future */}
+  <section className="space-y-5">
+    <h2 className="m-0">Future (planned / TBD)</h2>
+
+    <ul className="space-y-3">
+      <li className="flex flex-wrap items-center gap-2">
+        <span className="font-semibold">v3: Multi-Agent Runtime &amp; Real-Time AI</span>
+        <span className="inline-flex items-center rounded-full border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-200">
+          Planned
+        </span>
+      </li>
+
+      <li className="flex flex-wrap items-center gap-2">
+        <span className="font-semibold">v4: DriftQ Cloud (Managed AI Orchestration Platform)</span>
+        <span className="inline-flex items-center rounded-full border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-200">
+          Planned
+        </span>
+      </li>
+
+      <li className="flex flex-wrap items-center gap-2">
+        <span className="font-semibold">v5: AI Nervous System (Long-Term Vision)</span>
+        <span className="inline-flex items-center rounded-full border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-200">
+          Planned
+        </span>
+      </li>
+    </ul>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
+      <p className="m-0">
+        <strong>Expectation:</strong> details for future versions stay intentionally high-level until they’re actively built.
+      </p>
+    </div>
+  </section>
+
+</div>

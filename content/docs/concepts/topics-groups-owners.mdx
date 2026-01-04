@@ -3,23 +3,155 @@ title: Topics, Groups, Owners
 description: The core consumer model behind DriftQ-Core.
 ---
 
-## Topics
+<div className="space-y-12">
 
-A **topic** is a named stream of messages. Topics can have partitions.
+  {/* Intro */}
+  <section className="space-y-4">
+    <div>
+      DriftQ-Core’s consumer model is built around three concepts: <strong>topics</strong>,{" "}
+      <strong>consumer groups</strong>, and <strong>owners</strong>. If these click, the rest of the API feels obvious.
+    </div>
 
-## Consumer groups
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <div className="m-0">
+        <strong>Quick mental model:</strong> topic = stream, group = subscription, owner = worker identity.
+      </div>
+    </div>
+  </section>
 
-A **group** is a logical subscription. Each group maintains its own committed offset per partition.
+  {/* Topics */}
+  <section className="space-y-5">
+    <div className="space-y-2">
+      <h2 className="m-0">Topics</h2>
+      <div className="m-0">
+        A <strong>topic</strong> is a named stream of messages.
+      </div>
+    </div>
 
-That means:
+    <ul className="space-y-2">
+      <li><strong>Producers</strong> write messages to a topic.</li>
+      <li><strong>Consumers</strong> read messages from a topic.</li>
+      <li>Topics can have <strong>partitions</strong> to scale throughput and parallelism.</li>
+    </ul>
 
-- Group **g1** and **g2** can independently consume the same topic.
-- Each group sees the stream from its own position.
+    <div className="space-y-2">
+      <h3 className="m-0">Partitions (quick mental model)</h3>
+      <div className="m-0">
+        If a topic has multiple partitions, it’s effectively <strong>multiple parallel logs</strong>.
+      </div>
+      <ul className="space-y-2">
+        <li>Each partition has its own ordered offsets: <code>0, 1, 2, 3, …</code></li>
+        <li>Consumers typically read <strong>per-partition</strong> in order.</li>
+      </ul>
+    </div>
 
-## Owners
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <div className="m-0">
+        <strong>Rule of thumb:</strong> ordering is <strong>per-partition</strong>, not across the entire topic.
+      </div>
+    </div>
+  </section>
 
-An **owner** identifies a consumer instance. DriftQ uses `owner` to enforce safe ack/nack behavior.
+  {/* Consumer groups */}
+  <section className="space-y-5">
+    <div className="space-y-2">
+      <h2 className="m-0">Consumer groups</h2>
+      <div className="m-0">
+        A <strong>group</strong> is a logical subscription to a topic. Each group maintains its own{" "}
+        <strong>committed offset</strong> per partition.
+      </div>
+    </div>
 
-- `/v1/consume` requires `owner`
-- `/v1/ack` and `/v1/nack` require the same `owner`
-- If the owner doesn’t match who currently holds the message lease, you get a conflict response.
+    <div className="space-y-2">
+      <div className="m-0"><strong>That means:</strong></div>
+      <ul className="space-y-2">
+        <li><code>g1</code> and <code>g2</code> can independently consume the same topic.</li>
+        <li>Each group sees the stream from its <strong>own position</strong>, at its own pace.</li>
+      </ul>
+    </div>
+
+    <div className="space-y-3">
+      <h3 className="m-0">Example</h3>
+      <div className="m-0">
+        If topic <code>t</code> has partition <code>p0</code> and messages exist at offsets <code>0..100</code>:
+      </div>
+
+      <pre
+        className="
+          not-prose m-0 overflow-x-auto whitespace-pre rounded-2xl
+          border !border-black/10 !bg-black/5 px-4 py-3
+          font-mono text-sm leading-relaxed !text-zinc-900
+          dark:!border-white/10 dark:!bg-white/5 dark:!text-zinc-100
+        "
+      >
+      {`group=g1  -> offset 10
+      group=g2  -> offset 72`}
+      </pre>
+
+      <div className="m-0">Both are valid and normal.</div>
+    </div>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <div className="m-0">
+        <strong>What this enables:</strong> multiple independent workflows reading the same event stream.
+      </div>
+    </div>
+  </section>
+
+  {/* Owners */}
+  <section className="space-y-5">
+    <div className="space-y-2">
+      <h2 className="m-0">Owners</h2>
+      <div className="m-0">
+        An <strong>owner</strong> identifies a specific consumer instance inside a group (think: a worker process).
+      </div>
+    </div>
+
+    <div className="space-y-2">
+      <div className="m-0">
+        DriftQ uses <code>owner</code> to enforce <strong>safe ack/nack</strong> behavior with leases:
+      </div>
+      <ul className="space-y-2">
+        <li><code>/v1/consume</code> requires <code>owner</code></li>
+        <li><code>/v1/ack</code> and <code>/v1/nack</code> must use the <strong>same</strong> <code>owner</code></li>
+        <li>If the owner doesn’t match the current lease holder → <strong>409 conflict</strong></li>
+      </ul>
+    </div>
+
+    <div className="space-y-2">
+      <h3 className="m-0">Why this exists</h3>
+      <div className="m-0">Without an <code>owner</code> + lease model, you risk:</div>
+      <ul className="space-y-2">
+        <li>two consumers processing the same message at once</li>
+        <li>a consumer acking work it doesn’t actually own</li>
+        <li>silent double-processing after crashes/retries</li>
+      </ul>
+    </div>
+
+    <div className="space-y-3">
+      <h3 className="m-0">Minimal mental model</h3>
+      <ol className="space-y-2">
+        <li>Consumer calls <strong>consume</strong> with <code>(topic, group, owner)</code> → receives a <strong>leased</strong> message</li>
+        <li>Same consumer later calls <strong>ack/nack</strong> with the same <code>(topic, group, owner)</code></li>
+        <li>If a different consumer tries to ack it → <strong>409 conflict</strong></li>
+      </ol>
+    </div>
+
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+      <div className="m-0">
+        <strong>Bottom line:</strong> <code>owner</code> is what makes retries safe and prevents “wrong consumer acked it.”
+      </div>
+    </div>
+  </section>
+
+  {/* Common combinations */}
+  <section className="space-y-4">
+    <h2 className="m-0">Common combinations</h2>
+    <ul className="space-y-2">
+      <li><strong>Scale processing:</strong> same <code>group</code>, different <code>owners</code> (multiple workers)</li>
+      <li><strong>Independent workflows:</strong> different <code>groups</code> (separate offsets)</li>
+      <li><strong>Strict safety:</strong> keep <code>owner</code> stable per consumer process instance</li>
+    </ul>
+  </section>
+
+</div>

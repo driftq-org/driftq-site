@@ -26,9 +26,8 @@ const SiteHeader = () => (
         <div className="font-semibold">{site.name}</div>
       </Link>
 
-      <nav className="hidden items-center gap-2 md:flex">
+      <nav className="hidden items-center gap-8 md:flex">
         <Link href="/docs" className={linkCls}>Docs</Link>
-        <Link href="/docs/observability/metrics" className={linkCls}>Metrics</Link>
         <Link href="/docs/roadmap" className={linkCls}>Roadmap</Link>
         <a href={site.githubUrl} className={linkCls} target="_blank" rel="noreferrer">GitHub</a>
       </nav>
@@ -36,14 +35,8 @@ const SiteHeader = () => (
       <div className="flex items-center gap-2">
         <ThemeToggle />
 
-        <Button href="/docs" variant="secondary" className="hidden sm:inline-flex">
-          Read the docs
-        </Button>
-        <Button href={site.githubUrl} className="hidden sm:inline-flex">
-          View on GitHub
-        </Button>
-        <Button href="/docs" className="sm:hidden" variant="primary">
-          Docs
+        <Button href="/docs/quickstart" variant="primary" className="hidden sm:inline-flex">
+          Quickstart
         </Button>
       </div>
     </div>
