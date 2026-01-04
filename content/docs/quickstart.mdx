@@ -81,6 +81,10 @@ curl -s "http://localhost:8080/metrics" | findstr dlq_messages_total
 curl -s "http://localhost:8080/metrics" | findstr produce_rejected_total
 ```
 
-> Tip: If you're on macOS/Linux, replace `findstr` with `grep`.
+<div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+  <p className="m-0">
+    <strong>Tip:</strong> If you're on macOS/Linux, replace <code>findstr</code> with <code>grep</code>.
+  </p>
+</div>
 
 </div>

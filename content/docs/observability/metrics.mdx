@@ -12,7 +12,7 @@ description: Prometheus metrics exposed by DriftQ-Core.
       Use it to monitor reliability, lag, and backpressure in real time.
     </p>
 
-    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
+    <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
       <p className="m-0">
         <strong>Endpoint:</strong> <code>GET /metrics</code>
       </p>
@@ -24,6 +24,7 @@ description: Prometheus metrics exposed by DriftQ-Core.
     <h2 className="m-0">Core metrics</h2>
 
     <div className="space-y-3">
+
       <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
         <div className="font-semibold">
           <code>inflight_messages{"{topic,group,partition}"}</code>
@@ -59,6 +60,7 @@ description: Prometheus metrics exposed by DriftQ-Core.
           Total rejected produce attempts due to backpressure / overload (labeled by reason).
         </div>
       </div>
+
     </div>
   </section>
 
@@ -66,16 +68,16 @@ description: Prometheus metrics exposed by DriftQ-Core.
   <section className="space-y-4">
     <h2 className="m-0">Quick usage</h2>
 
-    <div className="rounded-2xl border border-black/10 bg-black/5 p-4 dark:border-white/10 dark:bg-white/5">
-      <pre className="m-0 overflow-x-auto"><code>{`# view everything
+    <pre className="not-prose m-0 overflow-x-auto whitespace-pre rounded-2xl border !border-black/10 !bg-black/5 px-4 py-3 font-mono text-sm leading-relaxed !text-zinc-900 dark:!border-white/10 dark:!bg-white/5 dark:!text-zinc-100">
+      <code className="!bg-transparent !p-0 !text-inherit">{`# view everything
 curl -s "http://localhost:8080/metrics"
 
 # quick filters (Windows)
 curl -s "http://localhost:8080/metrics" | findstr consumer_lag
 
 # quick filters (macOS/Linux)
-curl -s "http://localhost:8080/metrics" | grep consumer_lag`}</code></pre>
-    </div>
+curl -s "http://localhost:8080/metrics" | grep consumer_lag`}</code>
+    </pre>
 
     <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 dark:border-white/10 dark:bg-white/5">
       <p className="m-0">
