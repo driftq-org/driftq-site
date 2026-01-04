@@ -12,7 +12,11 @@ export const metadata: Metadata = {
   },
   description: site.description,
   metadataBase: new URL("https://drift-q.com"),
-  openGraph: { title: site.name, description: site.description, type: "website" }
+  openGraph: {
+    title: site.name,
+    description: site.description,
+    type: "website"
+  }
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
