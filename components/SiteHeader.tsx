@@ -9,13 +9,22 @@ const linkCls =
   "text-zinc-600 hover:text-zinc-900 hover:bg-black/5 " +
   "dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/10";
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const SiteHeader = () => (
   <header className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-zinc-950/70">
     <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
       <Link href="/" className="flex items-center gap-2">
         <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-transparent">
-          <Image
+          {/* <Image
             src="/logo.png"
+            alt="DriftQ logo"
+            fill
+            className="object-cover"
+            priority
+          /> */}
+          <Image
+            src={`${base}/logo.png`}
             alt="DriftQ logo"
             fill
             className="object-cover"
