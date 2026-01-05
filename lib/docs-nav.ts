@@ -1,7 +1,29 @@
 export type NavItem = { title: string; href: string };
 export type NavSection = { title: string; items: NavItem[] };
 
-export const docsNav: NavSection[] = [
+const slash = (href: string) => {
+  // leave external links / anchors / mailto alone
+  if (!href.startsWith("/")) {
+    return href;
+  }
+
+  if (href === "/") {
+    return href;
+  }
+
+  if (href.endsWith("/")) {
+    return href;
+  }
+
+  // don't touch file paths like /favicon.ico
+  if (href.includes(".")) {
+    return href;
+  }
+
+  return href + "/";
+};
+
+const rawDocsNav: NavSection[] = [
   {
     title: "Getting Started",
     items: [
@@ -35,3 +57,8 @@ export const docsNav: NavSection[] = [
     items: [{ title: "Roadmap", href: "/docs/roadmap" }]
   }
 ];
+
+export const docsNav: NavSection[] = rawDocsNav.map((sec) => ({
+  ...sec,
+  items: sec.items.map((it) => ({ ...it, href: slash(it.href) }))
+}));
