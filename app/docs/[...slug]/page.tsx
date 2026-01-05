@@ -2,7 +2,15 @@ import DocsShell from "@/components/docs/DocsShell";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { mdxComponents } from "@/components/docs/MDXComponents";
 import { notFound } from "next/navigation";
-import { readDocSource } from "@/lib/docs";
+import { listAllDocSlugs, readDocSource } from "@/lib/docs";
+
+export const dynamicParams = false;
+
+export const generateStaticParams = () => {
+  return listAllDocSlugs()
+    .filter((slug) => slug.length > 0)
+    .map((slug) => ({ slug }));
+}
 
 type Params = { slug?: string[] };
 
