@@ -6,8 +6,7 @@ import { listAllDocSlugs, readDocSource } from "@/lib/docs";
 
 export const dynamicParams = false;
 
-export function generateStaticParams() {
-  // Your /docs root is handled by app/docs/page.tsx, so skip []
+export const generateStaticParams = () => {
   return listAllDocSlugs()
     .filter((slug) => slug.length > 0)
     .map((slug) => ({ slug }));
