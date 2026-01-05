@@ -1,18 +1,23 @@
 /** @type {import('next').NextConfig} */
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
-  // IMPORTANT for https://driftq-org.github.io/DriftQ-Site/
-  basePath: "/DriftQ-Site",
-  assetPrefix: "/DriftQ-Site/",
-  basePath,
-  assetPrefix: `${basePath}/`,
+
+  // Only set these when basePath is non-empty
+  ...(basePath ? { basePath, assetPrefix: `${basePath}/` } : {}),
+
+  // Expose to client code (so your logo fix can use it)
   env: {
-    NEXT_PUBLIC_BASE_PATH: basePath
-  }
+    NEXT_PUBLIC_BASE_PATH: basePath,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || "",
+  },
 };
 
 export default nextConfig;
