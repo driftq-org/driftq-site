@@ -16,15 +16,8 @@ const SiteHeader = () => (
     <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
       <Link href="/" className="flex items-center gap-2">
         <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-transparent">
-          {/* <Image
-            src="/logo.png"
-            alt="DriftQ logo"
-            fill
-            className="object-cover"
-            priority
-          /> */}
           <Image
-            src={`${base}/logo.png`}
+            src="/logo.png"
             alt="DriftQ logo"
             fill
             className="object-cover"
