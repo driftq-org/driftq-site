@@ -131,13 +131,6 @@ curl -i -X POST "http://localhost:8080/v1/ack?topic=t&group=g&owner=o&partition=
 # Metrics
 curl -s "http://localhost:8080/metrics" | findstr consumer_lag`}
             </pre>
-
-            <div className="mt-3 flex items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-400">
-              <span>These patterns show up in real DriftQ workflows.</span>
-              <Link href="/docs/use-cases" className="text-indigo-400 hover:text-indigo-300 underline underline-offset-4 decoration-transparent hover:decoration-indigo-300/60 transition">
-                Explore use cases
-              </Link>
-            </div>
           </div>
         </div>
       </div>
