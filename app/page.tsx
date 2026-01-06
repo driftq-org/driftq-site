@@ -88,9 +88,7 @@ const HomePage = () => (
           </h2>
 
           <p className="mt-4 text-zinc-600 dark:text-zinc-300">
-            DriftQ is not “just a queue”. It’s the reliability layer for AI systems that need retries,
-            backoff, idempotency, and observability — without bringing a full Kafka cluster to a knife
-            fight.
+            DriftQ is not “just a queue”. It’s the reliability layer for systems that need retries, backoff, idempotency, and observability — without fragile glue code.
           </p>
 
           <ul className="mt-6 space-y-3 text-zinc-700 dark:text-zinc-200">
