@@ -9,7 +9,7 @@ const RunLocallyPage = () => (
     <div className="not-prose">
       <div className="space-y-8">
         <div className="space-y-3">
-          <h1 className="text-4xl font-black tracking-tight text-zinc-950 dark:text-white sm:text-5xl">
+          <h1 className="text-3xl font-black tracking-tight text-zinc-950 dark:text-white sm:text-4xl">
             Run DriftQ-Core locally
           </h1>
 
