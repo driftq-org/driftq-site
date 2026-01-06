@@ -1,21 +1,14 @@
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Link from "next/link";
+import { InlineCode, GradientWord } from "@/components/docs/DocsUI";
 
 const containerCls = "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8";
 const linkCls = "underline underline-offset-4 decoration-transparent hover:decoration-white/70 text-indigo-400 hover:text-indigo-300 transition";
+const ctaLinkCls =
+  "inline-flex items-center gap-2 text-sm font-semibold text-indigo-400 hover:text-indigo-300 " +
+  "underline underline-offset-4 decoration-transparent hover:decoration-indigo-300/60 transition";
 
-const GradientWord = ({ children }: { children: React.ReactNode }) => (
-  <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-    {children}
-  </span>
-);
-
-const InlineCode = ({ children }: { children: React.ReactNode }) => (
-  <code className="rounded-md bg-zinc-100 px-1.5 py-0.5 text-[0.95em] text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100">
-    {children}
-  </code>
-);
 
 const ProgressBox = () => (
   <div className="w-fit rounded-2xl border border-zinc-200/70 bg-white/70 px-3 py-2 text-xs text-zinc-700 shadow-soft backdrop-blur dark:border-white/10 dark:bg-zinc-950/60 dark:text-zinc-200">
@@ -27,9 +20,15 @@ const ProgressBox = () => (
       </div>
 
       <div className="inline-flex items-center gap-2">
+        <span className="h-2 w-2 rounded-full bg-green-500" />
+        <span className="font-semibold">Shipped:</span>
+        <span>Docker images, docs polish, etc.</span>
+      </div>
+
+      <div className="inline-flex items-center gap-2">
         <span className="h-2 w-2 rounded-full bg-yellow-400" />
         <span className="font-semibold">Now:</span>
-        <span>Docker images, docs polish, etc.</span>
+        <span>AI Workflow Engine & RAG Platform</span>
       </div>
     </div>
   </div>
@@ -49,8 +48,8 @@ const HomePage = () => (
             </h1>
 
             <p className="mt-5 text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
-              DriftQ is the AI-native reliability layer for agent workflows. DriftQ-Core is the broker you can run today.
-              See the{" "}
+              DriftQ is the AI-native reliability layer for agent workflows. DriftQ-Core is the broker you
+              can run today. See the{" "}
               <Link href="/docs/roadmap" className={linkCls}>
                 roadmap
               </Link>{" "}
@@ -89,8 +88,9 @@ const HomePage = () => (
           </h2>
 
           <p className="mt-4 text-zinc-600 dark:text-zinc-300">
-            DriftQ is not “just a queue”. It’s the reliability layer for AI systems that need retries, backoff,
-            idempotency, and observability — without bringing a full Kafka cluster to a knife fight.
+            DriftQ is not “just a queue”. It’s the reliability layer for AI systems that need retries,
+            backoff, idempotency, and observability — without bringing a full Kafka cluster to a knife
+            fight.
           </p>
 
           <ul className="mt-6 space-y-3 text-zinc-700 dark:text-zinc-200">
@@ -99,6 +99,16 @@ const HomePage = () => (
             <li>• Streaming consumers that can crash and recover without double-processing</li>
             <li>• Backpressure-aware producers that get explicit 429 + Retry-After</li>
           </ul>
+
+          <div className="mt-5">
+            <Link href="/docs/use-cases" className={ctaLinkCls}>
+              <span aria-hidden>→</span>
+              <span>See real-world use cases</span>
+            </Link>
+            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+              Concrete scenarios: Next.js + FastAPI + LangChain pipelines, retries, DLQ, replay, and more.
+            </p>
+          </div>
         </div>
 
         <div className="lg:col-span-7">
@@ -121,6 +131,13 @@ curl -i -X POST "http://localhost:8080/v1/ack?topic=t&group=g&owner=o&partition=
 # Metrics
 curl -s "http://localhost:8080/metrics" | findstr consumer_lag`}
             </pre>
+
+            <div className="mt-3 flex items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-400">
+              <span>These patterns show up in real DriftQ workflows.</span>
+              <Link href="/docs/use-cases" className="text-indigo-400 hover:text-indigo-300 underline underline-offset-4 decoration-transparent hover:decoration-indigo-300/60 transition">
+                Explore use cases
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -128,8 +145,12 @@ curl -s "http://localhost:8080/metrics" | findstr consumer_lag`}
 
     <section className={`${containerCls} pb-14 sm:pb-18`}>
       <div className="mb-7">
-        <h3 className="text-xl font-extrabold tracking-tight text-zinc-950 dark:text-white">Core capabilities</h3>
-        <p className="mt-2 text-zinc-600 dark:text-zinc-300">The primitives you need for safe, retryable AI work.</p>
+        <h3 className="text-xl font-extrabold tracking-tight text-zinc-950 dark:text-white">
+          Core capabilities
+        </h3>
+        <p className="mt-2 text-zinc-600 dark:text-zinc-300">
+          The primitives you need for safe, retryable AI work.
+        </p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -138,7 +159,9 @@ curl -s "http://localhost:8080/metrics" | findstr consumer_lag`}
         </Card>
         <Card title="Retry + DLQ">Automatic redelivery, envelope retry policy, and strict DLQ routing.</Card>
         <Card title="Idempotency">Consume-scope idempotency keys to prevent duplicate side effects.</Card>
-        <Card title="Observability">Prometheus metrics for inflight, lag, DLQ totals, and backpressure rejects.</Card>
+        <Card title="Observability">
+          Prometheus metrics for inflight, lag, DLQ totals, and backpressure rejects.
+        </Card>
       </div>
     </section>
   </main>

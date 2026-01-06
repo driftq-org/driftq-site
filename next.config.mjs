@@ -11,7 +11,7 @@ const nextConfig = {
   // Only use /DriftQ-Site when deploying to driftq-org.github.io/DriftQ-Site
   ...(isGhPagesProject
     ? { basePath: "/DriftQ-Site", assetPrefix: "/DriftQ-Site" }
-    : {}),
+    : {})
 };
 
 export default nextConfig;
