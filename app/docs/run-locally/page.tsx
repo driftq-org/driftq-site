@@ -1,19 +1,8 @@
 import DocsShell from "@/components/docs/DocsShell";
+import { Code, CodeSpan } from "@/components/docs/DocsUI";
 
 const IMAGE = "ghcr.io/driftq-org/driftq-core";
 const DEFAULT_VERSION = "1.0.0";
-
-const InlineCode = ({ children }: { children: React.ReactNode }) => (
-  <code className="rounded-md border border-black/10 bg-black/5 px-1.5 py-0.5 font-mono text-[0.85em] text-zinc-900 dark:border-white/10 dark:bg-white/10 dark:text-zinc-100">
-    {children}
-  </code>
-);
-
-const Code = ({ children }: { children: string }) => (
-  <pre className="overflow-x-auto rounded-2xl border border-black/10 bg-black/10 p-4 text-xs text-zinc-900 dark:border-white/10 dark:bg-white/10 dark:text-zinc-100">
-    <code>{children}</code>
-  </pre>
-);
 
 const RunLocallyPage = () => (
   <DocsShell currentPath="/docs/run-locally">
@@ -44,7 +33,7 @@ const RunLocallyPage = () => (
           </div>
 
           <p className="mt-3 text-sm text-zinc-700 dark:text-zinc-200">
-            Pin a version so your run is reproducible. <InlineCode>latest</InlineCode> tracks <InlineCode>main</InlineCode>{" "}
+            Pin a version so your run is reproducible. <CodeSpan>latest</CodeSpan> tracks <CodeSpan>main</CodeSpan>{" "}
             (convenient, but can break unexpectedly).
           </p>
 
@@ -75,14 +64,14 @@ curl.exe http://localhost:8080/v1/version`}</Code>
             <div className="text-sm text-zinc-700 dark:text-zinc-200">
               <div className="font-semibold text-zinc-900 dark:text-zinc-100">Useful tags</div>
               <ul className="mt-2 space-y-1">
-                <li>• <InlineCode>{`${IMAGE}:${DEFAULT_VERSION}`}</InlineCode> (recommended: reproducible)</li>
-                <li>• <InlineCode>{`${IMAGE}:latest`}</InlineCode> (tracks <InlineCode>main</InlineCode>)</li>
-                <li>• <InlineCode>{`${IMAGE}:sha-<...>`}</InlineCode> (exact build)</li>
+                <li>• <CodeSpan>{`${IMAGE}:${DEFAULT_VERSION}`}</CodeSpan> (recommended: reproducible)</li>
+                <li>• <CodeSpan>{`${IMAGE}:latest`}</CodeSpan> (tracks <CodeSpan>main</CodeSpan>)</li>
+                <li>• <CodeSpan>{`${IMAGE}:sha-<...>`}</CodeSpan> (exact build)</li>
               </ul>
             </div>
 
             <p className="text-sm text-zinc-700 dark:text-zinc-200">
-              Stop it with <InlineCode>Ctrl+C</InlineCode>. To wipe persisted WAL/data:
+              Stop it with <CodeSpan>Ctrl+C</CodeSpan>. To wipe persisted WAL/data:
             </p>
 
             <Code>{`docker volume rm driftq-data`}</Code>
@@ -96,7 +85,7 @@ curl.exe http://localhost:8080/v1/version`}</Code>
 
           <p className="mt-3 text-sm text-zinc-700 dark:text-zinc-200">
             Compose uses a named volume so WAL persists. You can override the image tag with{" "}
-            <InlineCode>DRIFTQ_VERSION</InlineCode>.
+            <CodeSpan>DRIFTQ_VERSION</CodeSpan>.
           </p>
 
           <div className="mt-4 space-y-4">
@@ -113,8 +102,8 @@ docker compose up`}</Code>
             </div>
 
             <div className="text-sm text-zinc-700 dark:text-zinc-200">
-              DriftQ listens on <InlineCode>http://localhost:8080</InlineCode>. WAL is stored in a named Docker volume
-              mounted at <InlineCode>/data</InlineCode> inside the container.
+              DriftQ listens on <CodeSpan>http://localhost:8080</CodeSpan>. WAL is stored in a named Docker volume
+              mounted at <CodeSpan>/data</CodeSpan> inside the container.
             </div>
 
             <div>

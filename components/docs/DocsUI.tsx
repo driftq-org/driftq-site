@@ -85,3 +85,15 @@ export const InlineCode = ({ children }: { children: React.ReactNode }) => (
     {children}
   </code>
 );
+
+export const CodeSpan = ({ children }: { children: React.ReactNode }) => (
+  <code className="rounded-md border border-black/10 bg-black/5 px-1.5 py-0.5 font-mono text-[0.85em] text-zinc-900 dark:border-white/10 dark:bg-white/10 dark:text-zinc-100">
+    {children}
+  </code>
+);
+
+export const Code = ({ children }: { children: string }) => (
+  <pre className="overflow-x-auto rounded-2xl border border-black/10 bg-black/10 p-4 text-xs text-zinc-900 dark:border-white/10 dark:bg-white/10 dark:text-zinc-100">
+    <code>{children}</code>
+  </pre>
+);

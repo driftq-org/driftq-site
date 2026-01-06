@@ -9,7 +9,6 @@ const ctaLinkCls =
   "inline-flex items-center gap-2 text-sm font-semibold text-indigo-400 hover:text-indigo-300 " +
   "underline underline-offset-4 decoration-transparent hover:decoration-indigo-300/60 transition";
 
-
 const ProgressBox = () => (
   <div className="w-fit rounded-2xl border border-zinc-200/70 bg-white/70 px-3 py-2 text-xs text-zinc-700 shadow-soft backdrop-blur dark:border-white/10 dark:bg-zinc-950/60 dark:text-zinc-200">
     <div className="flex flex-col gap-1.5">
