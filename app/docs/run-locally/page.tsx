@@ -8,14 +8,6 @@ const RunLocallyPage = () => (
   <DocsShell currentPath="/docs/run-locally">
     <div className="not-prose">
       <div className="space-y-8">
-        {/* badge */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-3 py-1 text-xs text-zinc-700 dark:border-white/10 dark:bg-white/5 dark:text-zinc-200">
-          <span className="h-2 w-2 rounded-full bg-emerald-400" />
-          Quickstart
-          <span className="text-zinc-400 dark:text-zinc-500">•</span>
-          Docker images available
-        </div>
-
         <div className="space-y-3">
           <h1 className="text-4xl font-black tracking-tight text-zinc-950 dark:text-white sm:text-5xl">
             Run DriftQ-Core locally
