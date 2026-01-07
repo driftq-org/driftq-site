@@ -28,7 +28,7 @@ const DocsShell = (props: { currentPath: string; children: React.ReactNode }) =>
 
       <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[280px_1fr]">
-          <aside className="md:sticky md:top-20 md:h-[calc(100vh-120px)] md:overflow-auto">
+          <aside className="max-h-[60vh] overflow-auto md:sticky md:top-20 md:h-[calc(100vh-120px)] md:max-h-none md:overflow-auto">
             <div className="rounded-2xl border border-black/10 bg-white/60 p-4 shadow-soft backdrop-blur dark:border-white/10 dark:bg-zinc-950/50">
               <div className="mb-4">
                 <input
