@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { docsNav } from "@/lib/docs-nav";
+import { normalizeDocsPath } from "@/lib/utils";
 import { useMemo, useState } from "react";
 
 const DocsShell = (props: { currentPath: string; children: React.ReactNode }) => {
   const [q, setQ] = useState("");
-
+  const current = useMemo(() => normalizeDocsPath(props.currentPath), [props.currentPath]);
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
     if (!query) {
@@ -16,7 +17,7 @@ const DocsShell = (props: { currentPath: string; children: React.ReactNode }) =>
     return docsNav
       .map((s) => ({
         ...s,
-        items: s.items.filter((i) => i.title.toLowerCase().includes(query)),
+        items: s.items.filter((i) => i.title.toLowerCase().includes(query))
       }))
       .filter((s) => s.items.length > 0);
   }, [q]);
@@ -45,37 +46,40 @@ const DocsShell = (props: { currentPath: string; children: React.ReactNode }) =>
               </div>
 
               <nav className="space-y-6">
-                {filtered.map((section) => (
-                  <div key={section.title}>
-                    <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-                      {section.title}
+                {
+                  filtered.map((section) => (
+                    <div key={section.title}>
+                      <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                        {section.title}
+                      </div>
+
+                      <ul className="mt-2 space-y-1">
+                        {
+                          section.items.map((item) => {
+                            const href = normalizeDocsPath(item.href);
+                            const active = current === href || (href !== "/docs/" && current.startsWith(href));
+
+                            return (
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  className={[
+                                    "block rounded-lg px-2 py-1 text-sm transition-colors",
+                                    active
+                                      ? "bg-zinc-950 text-white dark:bg-white dark:text-zinc-950"
+                                      : "text-zinc-700 hover:bg-black/5 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white"
+                                  ].join(" ")}
+                                >
+                                  {item.title}
+                                </Link>
+                              </li>
+                            );
+                          })
+                        }
+                      </ul>
                     </div>
-
-                    <ul className="mt-2 space-y-1">
-                      {section.items.map((item) => {
-                        const active =
-                          props.currentPath === item.href ||
-                          (item.href !== "/docs" && props.currentPath.startsWith(item.href + "/"));
-
-                        return (
-                          <li key={item.href}>
-                            <Link
-                              href={item.href}
-                              className={[
-                                "block rounded-lg px-2 py-1 text-sm transition-colors",
-                                active
-                                  ? "bg-zinc-950 text-white dark:bg-white dark:text-zinc-950"
-                                  : "text-zinc-700 hover:bg-black/5 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white",
-                              ].join(" ")}
-                            >
-                              {item.title}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                ))}
+                  ))
+                }
               </nav>
             </div>
           </aside>
