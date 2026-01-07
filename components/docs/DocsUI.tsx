@@ -91,9 +91,3 @@ export const CodeSpan = ({ children }: { children: React.ReactNode }) => (
     {children}
   </code>
 );
-
-export const Code = ({ children }: { children: string }) => (
-  <pre className="overflow-x-auto rounded-2xl border border-black/10 bg-black/10 p-4 text-xs text-zinc-900 dark:border-white/10 dark:bg-white/10 dark:text-zinc-100">
-    <code>{children}</code>
-  </pre>
-);
