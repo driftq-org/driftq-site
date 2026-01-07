@@ -11,23 +11,34 @@ const ctaLinkCls =
 
 const ProgressBox = () => (
   <div className="w-fit rounded-2xl border border-zinc-200/70 bg-white/70 px-3 py-2 text-xs text-zinc-700 shadow-soft backdrop-blur dark:border-white/10 dark:bg-zinc-950/60 dark:text-zinc-200">
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
+      {/* status */}
       <div className="inline-flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-green-500" />
-        <span className="font-semibold">Shipped:</span>
-        <span>DriftQ-Core MVP</span>
+        <span className="inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-900 dark:border-amber-900/40 dark:bg-amber-900/20 dark:text-amber-200">
+          Alpha — not production-ready
+        </span>
       </div>
 
-      <div className="inline-flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-green-500" />
-        <span className="font-semibold">Shipped:</span>
-        <span>Docker images, docs polish, etc.</span>
-      </div>
+      <div className="h-px w-full bg-black/5 dark:bg-white/10" />
 
-      <div className="inline-flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-yellow-400" />
-        <span className="font-semibold">Now:</span>
-        <span>AI Workflow Engine & RAG Platform</span>
+      <div className="flex flex-col gap-1.5">
+        <div className="inline-flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-green-500" />
+          <span className="font-semibold">Shipped:</span>
+          <span>DriftQ-Core MVP</span>
+        </div>
+
+        <div className="inline-flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-green-500" />
+          <span className="font-semibold">Shipped:</span>
+          <span>Docker images, docs polish, etc.</span>
+        </div>
+
+        <div className="inline-flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-yellow-400" />
+          <span className="font-semibold">Now:</span>
+          <span>AI Workflow Engine &amp; RAG Platform</span>
+        </div>
       </div>
     </div>
   </div>
