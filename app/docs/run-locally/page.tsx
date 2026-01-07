@@ -5,7 +5,6 @@ const IMAGE = "ghcr.io/driftq-org/driftq-core";
 const DEFAULT_VERSION = "1.0.0";
 const cardCls = "rounded-3xl border border-black/10 bg-black/5 p-6 dark:border-white/10 dark:bg-white/5";
 
-
 const BlockCode = ({ children }: { children: string }) => (
   <pre
     className={[
