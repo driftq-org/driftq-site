@@ -37,7 +37,7 @@ const ProgressBox = () => (
         <div className="inline-flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-yellow-400" />
           <span className="font-semibold">Now:</span>
-          <span>AI Workflow Engine &amp; RAG Platform</span>
+          <span>Replayable Workflow Runtime</span>
         </div>
       </div>
     </div>

@@ -50,7 +50,7 @@ description: Where the DriftQ project is going next (v2 and beyond).
   {/* v2 */}
   <section className="space-y-5">
     <h2 className="m-0 flex flex-wrap items-center gap-2">
-      <span>v2: AI Workflow Engine &amp; RAG Platform</span>
+      <span>v2: Replayable Workflow Runtime — Time-travel debugging and safe retries for AI workflows</span>
       <span className="inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-900 dark:border-amber-900/40 dark:bg-amber-900/20 dark:text-amber-200">
         In progress
       </span>
@@ -61,16 +61,18 @@ description: Where the DriftQ project is going next (v2 and beyond).
     </p>
 
     <ul className="space-y-2">
-      <li><strong>Packaging</strong> & docs</li>
-      <li><strong>Workflow execution</strong> — durable multi-step runs built on v1 semantics</li>
-      <li><strong>RAG pipelines</strong> — first-class “build + run” flows for retrieval-based systems</li>
-      <li><strong>Policy &amp; limits</strong> — basic routing rules and budget-style guardrails</li>
-      <li><strong>Tracing</strong> — workflow-level visibility across steps</li>
+      <li><strong>Packaging</strong> &amp; docs — polished local-first run path + clean docs</li>
+      <li><strong>Replayable runs</strong> — append-only run history + deterministic replay / re-drive from step N</li>
+      <li><strong>Workflow primitives</strong> — timers/delay, cancel, join/barrier, timeouts</li>
+      <li><strong>Budgets &amp; throttles</strong> — attempt/time/cost limits, concurrency caps, explicit backpressure</li>
+      <li><strong>Developer tooling</strong> — Run Inspector, attempt diffs, DLQ drilldown + fingerprints</li>
+      <li><strong>Observability</strong> — trace/run correlation + step metrics to answer “slow/stuck/costing” fast</li>
+      <li><strong>Templates &amp; demos</strong> — starter workflows (including a one-command RAG Index Builder demo)</li>
     </ul>
 
     <div className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
       <p className="m-0">
-        <strong>Intent:</strong> make AI workflows reproducible, debuggable, and reliable — not “best-effort scripts.”
+        <strong>Intent:</strong> make AI workflows reproducible, debuggable, and safe to retry — not "best-effort scripts."
       </p>
     </div>
   </section>
